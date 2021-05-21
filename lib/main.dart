@@ -24,7 +24,8 @@ class _MyHomePageState extends State<MyHomePage> {
   final picker = ImagePicker();
 
   Future getImage(bool useCamera) async {
-    final pickedFile = await picker.getImage(source: useCamera ? ImageSource.camera : ImageSource.gallery);
+    final pickedFile = await picker.getImage(
+        source: useCamera ? ImageSource.camera : ImageSource.gallery);
 
     setState(() {
       if (pickedFile != null) {
@@ -36,29 +37,31 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future handlePressed() async {
-    showModalBottomSheet(context: context, builder: (context){
-      return Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          ListTile(
-            leading: new Icon(Icons.photo),
-            title: new Text('拍摄照片'),
-            onTap: () {
-              Navigator.pop(context);
-              getImage(true);
-            },
-          ),
-          ListTile(
-            leading: new Icon(Icons.photo),
-            title: new Text('从相册中获取'),
-            onTap: () {
-              Navigator.pop(context);
-              getImage(false);
-            },
-          )
-        ],
-      );
-    });
+    showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              ListTile(
+                leading: Icon(Icons.photo),
+                title: Text('拍摄照片'),
+                onTap: () {
+                  Navigator.pop(context);
+                  getImage(true);
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.photo),
+                title: Text('从相册中获取'),
+                onTap: () {
+                  Navigator.pop(context);
+                  getImage(false);
+                },
+              )
+            ],
+          );
+        });
   }
 
   @override
@@ -68,9 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text('Image Picker Example'),
       ),
       body: Center(
-        child: _image == null
-            ? Text('No image selected.')
-            : Image.file(_image),
+        child: _image == null ? Text('No image selected.') : Image.file(_image),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: handlePressed,
